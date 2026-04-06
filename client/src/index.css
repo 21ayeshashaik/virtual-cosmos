@@ -1,0 +1,258 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* 
+  VIRTUAL COSMOS - CORE STYLES
+  IMPORTANT: @import statements MUST remain at the very top for PostCSS/Vite to process correctly.
+*/
+
+:root {
+  --cosmos-bg: #f3f4f6;
+  --cosmos-surface: #ffffff;
+  --cosmos-border: #e5e7eb;
+  --cosmos-primary: #4f46e5;
+  --cosmos-secondary: #ef4444;
+  --cosmos-accent: #10b981;
+  --cosmos-text: #1f2937;
+  --cosmos-text-muted: #6b7280;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--cosmos-bg);
+  font-family: 'Outfit', sans-serif;
+  color: var(--cosmos-text);
+}
+
+#cosmos-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none; /* Prevents browser scrolling when interacting with canvas */
+}
+
+.glass {
+  background: var(--cosmos-surface);
+  border: 1px solid var(--cosmos-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.glass-sm {
+  background: var(--cosmos-surface);
+  border: 1px solid var(--cosmos-border);
+  border-radius: 8px;
+}
+
+.btn-primary {
+  background: var(--cosmos-primary);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #4338ca;
+  transform: translateY(-1px);
+}
+
+.cosmos-input {
+  background: #f9fafb;
+  border: 1px solid var(--cosmos-border);
+  border-radius: 8px;
+  color: var(--cosmos-text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  padding: 10px 14px;
+  outline: none;
+  width: 100%;
+}
+
+.cosmos-input:focus {
+  border-color: var(--cosmos-primary);
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.chat-panel {
+  position: fixed;
+  right: 0;
+  top: 60px;
+  bottom: 0;
+  width: 320px;
+  background: white;
+  border-left: 1px solid var(--cosmos-border);
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  animation: slideInRight 0.3s ease-out forwards;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chat-bubble {
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 85%;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.chat-bubble.own {
+  align-self: flex-end;
+  background: var(--cosmos-primary);
+  color: white;
+  border-bottom-right-radius: 2px;
+}
+
+.chat-bubble.other {
+  align-self: flex-start;
+  background: #f3f4f6;
+  border: 1px solid var(--cosmos-border);
+  border-bottom-left-radius: 2px;
+}
+
+.hud {
+  position: fixed;
+  top: 75px;
+  left: 20px;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.users-list {
+  position: fixed;
+  top: 75px;
+  right: 340px;
+  z-index: 40;
+  width: 180px;
+}
+
+.connection-avatar-bar {
+  position: fixed;
+  top: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 45;
+  animation: slideInDown 0.3s ease-out;
+}
+
+.proximity-avatar {
+  width: 120px;
+  height: 140px;
+  background: white;
+  border-radius: 12px;
+  border: 2px solid var(--cosmos-primary);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+.proximity-avatar.partner {
+  border-color: #f59e0b;
+}
+
+.login-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  background: #f3f4f6;
+}
+
+.login-card {
+  width: 400px;
+  padding: 40px;
+  text-align: center;
+  background: white;
+  border: 1px solid var(--cosmos-border);
+  border-radius: 16px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+.minimap {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 160px;
+  height: 100px;
+  z-index: 40;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--cosmos-border);
+  background: white;
+}
+
+.top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #1e1b4b;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 60;
+  color: white;
+}
+
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: white;
+  border: 1px solid var(--cosmos-border);
+}
